@@ -4,16 +4,29 @@
   flex-direction: column;
 }
 
+/* Main container adjusted for navbar height */
 .main-container {
   flex: 1;
-  padding: 40px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  display: flex;
   width: 100%;
+  min-height: calc(100vh - 80px);
+  margin-top: 80px; /* Space for navbar which now includes navigation */
+}
+
+@media (max-width: 1024px) {
+  .main-container {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 768px) {
   .main-container {
-    padding: 20px 10px;
+    margin-top: 140px; /* More space for navbar with wrapped navigation on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    margin-top: 150px; /* Even more space for smaller screens */
   }
 }

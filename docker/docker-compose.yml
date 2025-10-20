@@ -16,7 +16,7 @@ services:
     networks:
       - rsu_network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U rsu_user"]
+      test: ["CMD-SHELL", "pg_isready -U rsu_user -d rsu_registration"]
       interval: 10s
       timeout: 5s
       retries: 5

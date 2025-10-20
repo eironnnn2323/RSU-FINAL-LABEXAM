@@ -1,82 +1,423 @@
-.header {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  color: white;
-  padding: 40px 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* ============================================
+   PROFESSIONAL FIXED NAVBAR
+   ============================================ */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.header-container {
-  max-width: 1200px;
+.navbar-scrolled {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 30px rgba(102, 126, 234, 0.3);
+  backdrop-filter: blur(20px);
+}
+
+.navbar-container {
+  max-width: 1400px;
   margin: 0 auto;
+  padding: 16px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 30px;
 }
 
-.header-content h1 {
-  font-size: 2.5rem;
-  margin-bottom: 5px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+/* ============================================
+   LOGO & BRAND SECTION
+   ============================================ */
+
+.navbar-brand {
+  flex-shrink: 0;
 }
 
-.header-content p {
-  font-size: 1.1rem;
-  opacity: 0.9;
-  font-weight: 300;
-}
-
-.header-info {
+.logo-wrapper {
   display: flex;
   align-items: center;
   gap: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-.status-indicator {
+.logo-wrapper:hover {
+  transform: translateY(-2px);
+}
+
+.logo-circle {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-circle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.2) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logo-wrapper:hover .logo-circle {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+  transform: rotate(-5deg);
+}
+
+.logo-wrapper:hover .logo-circle::before {
+  opacity: 1;
+}
+
+.logo-text {
+  font-size: 1.4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.brand-tagline {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+/* ============================================
+   NAVIGATION LINKS IN NAVBAR
+   ============================================ */
+
+.navbar-navigation {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.95rem;
-  padding: 8px 15px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
+  flex: 1;
+  justify-content: center;
 }
 
-.status-indicator::before {
+.navbar-navigation .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.3px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.navbar-navigation .nav-link::before {
   content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 10px;
+}
+
+.navbar-navigation .nav-link:hover {
+  transform: translateY(-2px);
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-navigation .nav-link:hover::before {
+  opacity: 1;
+}
+
+.navbar-navigation .nav-link.active {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-navigation .nav-link:active {
+  transform: translateY(0);
+}
+
+.navbar-navigation .nav-icon {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.navbar-navigation .nav-link:hover .nav-icon {
+  transform: scale(1.2) rotate(5deg);
+}
+
+/* ============================================
+   STATUS BADGE & ACTIONS
+   ============================================ */
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-shrink: 0;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.status-badge:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.status-dot {
   width: 8px;
   height: 8px;
   background: #4ade80;
   border-radius: 50%;
-  animation: pulse 2s infinite;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.6);
 }
 
 @keyframes pulse {
   0%, 100% {
     opacity: 1;
+    transform: scale(1);
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+.status-text {
+  font-size: 0.85rem;
+  color: white;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .navbar-container {
+    padding: 14px 30px;
+  }
+
+  .navbar-navigation .nav-link {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .brand-name {
+    font-size: 1.2rem;
   }
 }
 
 @media (max-width: 768px) {
-  .header {
-    padding: 30px 20px;
+  .navbar-container {
+    padding: 12px 20px;
+    flex-wrap: wrap;
   }
 
-  .header-container {
-    flex-direction: column;
-    text-align: center;
-    gap: 15px;
+  .navbar-navigation {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
   }
 
-  .header-content h1 {
-    font-size: 1.8rem;
+  .navbar-navigation .nav-link {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    flex: 1;
+    justify-content: center;
   }
 
-  .header-content p {
+  .brand-name {
+    font-size: 1.1rem;
+  }
+
+  .brand-tagline {
+    font-size: 0.75rem;
+  }
+
+  .logo-circle {
+    width: 45px;
+    height: 45px;
+  }
+
+  .logo-text {
+    font-size: 1.2rem;
+  }
+
+  .status-badge {
+    padding: 6px 12px;
+  }
+
+  .status-text {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: 10px 15px;
+  }
+
+  .logo-wrapper {
+    gap: 10px;
+  }
+
+  .logo-circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo-text {
     font-size: 1rem;
   }
+
+  .brand-name {
+    font-size: 1rem;
+  }
+
+  .brand-tagline {
+    display: none;
+  }
+
+  .navbar-navigation {
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  .navbar-navigation .nav-link {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .navbar-navigation .nav-icon {
+    font-size: 1rem;
+  }
+
+  .status-badge {
+    padding: 5px 10px;
+  }
+
+  .status-text {
+    display: none;
+  }
+
+  .status-dot {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* ============================================
+   SMOOTH ANIMATIONS
+   ============================================ */
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar {
+  animation: fadeInDown 0.5s ease-out;
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+.navbar-navigation .nav-link:focus {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
+
+.logo-wrapper:focus {
+  outline: 2px solid white;
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+
+/* ============================================
+   HOVER EFFECTS WITH SMOOTH TRANSITIONS
+   ============================================ */
+
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-navigation .nav-link,
+.status-badge,
+.logo-circle,
+.logo-wrapper {
+  will-change: transform;
 }
