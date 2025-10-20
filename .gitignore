@@ -1,0 +1,40 @@
+# Backend
+rsu-registration-backend/target/
+rsu-registration-backend/.classpath
+rsu-registration-backend/.project
+rsu-registration-backend/.settings/
+rsu-registration-backend/*.iml
+rsu-registration-backend/.vscode/
+
+# Frontend
+rsu-registration-frontend/node_modules/
+rsu-registration-frontend/build/
+rsu-registration-frontend/.env.local
+rsu-registration-frontend/.env.development.local
+rsu-registration-frontend/.env.test.local
+rsu-registration-frontend/.env.production.local
+rsu-registration-frontend/npm-debug.log*
+rsu-registration-frontend/yarn-debug.log*
+rsu-registration-frontend/yarn-error.log*
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.vscode/
+
+# Database
+*.db
+*.sqlite3
+logs/
+
+# Maven
+.m2/
+dependency-reduced-pom.xml
+
+# General
+.env
+.env.local
+*.log

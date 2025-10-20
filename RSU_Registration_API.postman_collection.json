@@ -1,0 +1,230 @@
+{
+  "info": {
+    "_postman_id": "rsu-registration-api",
+    "name": "RSU Registration API",
+    "description": "Enterprise Integration Patterns Lab - Student Registration System API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/registrations/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "registrations", "health"]
+        },
+        "description": "Check if the registration service is running"
+      },
+      "response": []
+    },
+    {
+      "name": "Submit Registration - Valid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"studentName\": \"John Doe\",\n  \"studentId\": \"RSU001001\",\n  \"email\": \"john.doe@rsu.edu\",\n  \"program\": \"Computer Science\",\n  \"yearLevel\": \"First Year\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/registrations/submit",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "registrations", "submit"]
+        },
+        "description": "Submit a valid student registration"
+      },
+      "response": []
+    },
+    {
+      "name": "Submit Registration - Missing Email",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"studentName\": \"Jane Smith\",\n  \"studentId\": \"RSU001002\",\n  \"program\": \"Engineering\",\n  \"yearLevel\": \"Second Year\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/registrations/submit",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "registrations", "submit"]
+        },
+        "description": "Test validation - missing required email field"
+      },
+      "response": []
+    },
+    {
+      "name": "Submit Registration - Invalid Email",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"studentName\": \"Bob Wilson\",\n  \"studentId\": \"RSU001003\",\n  \"email\": \"invalid-email\",\n  \"program\": \"Business Administration\",\n  \"yearLevel\": \"Third Year\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/registrations/submit",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "registrations", "submit"]
+        },
+        "description": "Test validation - invalid email format"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Registration by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/registrations/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "registrations", "1"]
+        },
+        "description": "Retrieve a registration by its ID"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Registration by Student ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/registrations/student/RSU001001",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "registrations", "student", "RSU001001"]
+        },
+        "description": "Retrieve a registration by student ID"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Registration Count",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/registrations/stats/count",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "registrations", "stats", "count"]
+        },
+        "description": "Get total number of registrations"
+      },
+      "response": []
+    },
+    {
+      "name": "Batch Registration - Student 1",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"studentName\": \"Alice Johnson\",\n  \"studentId\": \"RSU002001\",\n  \"email\": \"alice.johnson@rsu.edu\",\n  \"program\": \"Nursing\",\n  \"yearLevel\": \"First Year\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/registrations/submit",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "registrations", "submit"]
+        },
+        "description": "Batch test registration 1"
+      },
+      "response": []
+    },
+    {
+      "name": "Batch Registration - Student 2",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"studentName\": \"Charlie Brown\",\n  \"studentId\": \"RSU002002\",\n  \"email\": \"charlie.brown@rsu.edu\",\n  \"program\": \"Education\",\n  \"yearLevel\": \"Second Year\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/registrations/submit",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "registrations", "submit"]
+        },
+        "description": "Batch test registration 2"
+      },
+      "response": []
+    },
+    {
+      "name": "Batch Registration - Student 3",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"studentName\": \"Diana Price\",\n  \"studentId\": \"RSU002003\",\n  \"email\": \"diana.price@rsu.edu\",\n  \"program\": \"Liberal Arts\",\n  \"yearLevel\": \"Third Year\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/registrations/submit",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "registrations", "submit"]
+        },
+        "description": "Batch test registration 3"
+      },
+      "response": []
+    }
+  ]
+}
