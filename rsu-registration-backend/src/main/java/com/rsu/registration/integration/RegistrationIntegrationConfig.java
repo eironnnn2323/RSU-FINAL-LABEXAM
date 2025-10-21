@@ -2,9 +2,11 @@ package com.rsu.registration.integration;
 
 import com.rsu.registration.dto.StudentRegistrationDTO;
 import com.rsu.registration.dto.AggregatedStudentProfile;
+import com.rsu.registration.model.ErrorCategory;
 import com.rsu.registration.service.StudentRegistrationService;
 import com.rsu.registration.service.ContentBasedRouterService;
 import com.rsu.registration.service.StudentProfileAggregatorService;
+import com.rsu.registration.service.RetryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Binding;
@@ -41,26 +43,7 @@ public class RegistrationIntegrationConfig {
     private final StudentRegistrationService registrationService;
     private final ContentBasedRouterService contentBasedRouterService;
     private final StudentProfileAggregatorService aggregatorService;
-
-    /**
-     * Configure JSON message converter for RabbitMQ
-     */
-    @Bean
-    public MessageConverter jsonMessageConverter() {
-        return new Jackson2JsonMessageConverter();
-    }
-
-    /**
-     * Configure RabbitTemplate with JSON converter
-     */
-    @Bean
-    public org.springframework.amqp.rabbit.core.RabbitTemplate rabbitTemplate(
-            ConnectionFactory connectionFactory, MessageConverter jsonMessageConverter) {
-        org.springframework.amqp.rabbit.core.RabbitTemplate template = 
-                new org.springframework.amqp.rabbit.core.RabbitTemplate(connectionFactory);
-        template.setMessageConverter(jsonMessageConverter);
-        return template;
-    }
+    private final RetryService retryService;
 
     /**
      * Declare the queue for student registrations
@@ -175,6 +158,21 @@ public class RegistrationIntegrationConfig {
 
         } catch (Exception e) {
             log.error("❌ Error processing registration: {}", e.getMessage(), e);
+            
+            // Capture the failed message to error channel
+            log.warn("⚠️ Failed message captured to error channel - Will retry automatically");
+            try {
+                retryService.captureFailedMessage(
+                        registrationDTO, 
+                        "REGISTRATION_PROCESSING",
+                        ErrorCategory.DATABASE_ERROR,
+                        e
+                );
+            } catch (Exception captureError) {
+                log.error("❌ Failed to capture error message: {}", captureError.getMessage());
+            }
+            
+            // Re-throw to reject the message
             throw new RuntimeException("Failed to process registration", e);
         }
     }

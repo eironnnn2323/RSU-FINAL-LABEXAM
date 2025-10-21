@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './RegistrationForm.css';
 
@@ -107,11 +107,20 @@ function RegistrationForm() {
       
       const response = await axios.get(`${API_URL}/profile/${studentId}`);
       
-      console.log('Aggregated Profile:', response.data);
+      console.log('Aggregated Profile Response:', response.data);
+      console.log('Profile Status:', response.data?.aggregationStatus);
+      console.log('Profile Data:', {
+        academicRecords: response.data?.academicRecords,
+        housing: response.data?.housing,
+        billing: response.data?.billing,
+        library: response.data?.library
+      });
+      
       setAggregatedProfile(response.data);
       
     } catch (error) {
       console.error('Error fetching aggregated profile:', error);
+      console.error('Error response:', error.response?.data);
       // Don't show error to user, profile might still be aggregating
     } finally {
       setLoadingProfile(false);
@@ -134,7 +143,7 @@ function RegistrationForm() {
   };
 
   // Add escape key listener
-  React.useEffect(() => {
+  useEffect(() => {
     const handleEscapeKey = (e) => {
       if (e.key === 'Escape' && showModal) {
         closeModal();
@@ -440,6 +449,14 @@ function RegistrationForm() {
                   <div className="profile-loading">
                     <div className="spinner"></div>
                     <p>🔄 Aggregating responses from all systems...</p>
+                    <small>This may take a few seconds as we gather data from all university systems</small>
+                  </div>
+                )}
+
+                {!loadingProfile && !aggregatedProfile && (
+                  <div className="profile-pending">
+                    <p>⏳ Profile aggregation in progress...</p>
+                    <small>Your registration is being processed across multiple systems. This information will be available shortly.</small>
                   </div>
                 )}
 
@@ -450,14 +467,14 @@ function RegistrationForm() {
                     </h3>
                     
                     <div className="profile-status">
-                      <span className={`status-badge ${aggregatedProfile.aggregationStatus.toLowerCase()}`}>
-                        {aggregatedProfile.aggregationStatus}
+                      <span className={`status-badge ${aggregatedProfile.aggregationStatus?.toLowerCase() || 'pending'}`}>
+                        {aggregatedProfile.aggregationStatus || 'PENDING'}
                       </span>
                       <span className="response-count">
-                        {aggregatedProfile.responsesReceived}/{aggregatedProfile.responsesExpected} Systems Responded
+                        {aggregatedProfile.responsesReceived || 0}/{aggregatedProfile.responsesExpected || 3} Systems Responded
                       </span>
                       <span className="aggregation-time">
-                        ⚡ {aggregatedProfile.aggregationTimeMs}ms
+                        ⚡ {aggregatedProfile.aggregationTimeMs || 0}ms
                       </span>
                     </div>
 

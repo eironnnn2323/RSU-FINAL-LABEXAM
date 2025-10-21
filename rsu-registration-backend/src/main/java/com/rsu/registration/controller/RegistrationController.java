@@ -84,14 +84,19 @@ public class RegistrationController {
                     registrationDTO.getStudentName(), routedTo);
 
             // Send message to RabbitMQ queue (EIP Pattern: Message Channel)
-            rabbitTemplate.convertAndSend(
-                    REGISTRATION_EXCHANGE,
-                    "student.registration.submit",
-                    registrationDTO
-            );
+            try {
+                rabbitTemplate.convertAndSend(
+                        REGISTRATION_EXCHANGE,
+                        "student.registration.submit",
+                        registrationDTO
+                );
 
-            log.info("✅ Registration message sent to queue for student: {}", 
-                    registrationDTO.getStudentId());
+                log.info("✅ Registration message sent to queue for student: {}", 
+                        registrationDTO.getStudentId());
+            } catch (Exception rabbitException) {
+                log.error("❌ RabbitMQ connection failed: {}", rabbitException.getMessage());
+                throw rabbitException; // Re-throw to be caught by outer try-catch
+            }
 
             RegistrationResponseDTO response = RegistrationResponseDTO.builder()
                     .success(true)
