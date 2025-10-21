@@ -672,8 +672,67 @@ Housing Response + Academic Response + Library Response → Aggregator
 - Routing information
 - Aggregated profile data
 - System response details
+- **NEW**: XML download option for registration data
 
-### 2. Error Handling Features
+**Step 8: Export Registration (Optional)**
+- Click "📥 Download as XML" button in success modal
+- Downloads registration data in XML format
+- File named: `registration_{studentId}.xml`
+- Includes all student information and registration details
+
+### 2. XML Download Feature (NEW)
+
+#### Overview
+The system now supports exporting student registration data to XML format for:
+- Data integration with external systems
+- Backup and archival purposes
+- Compliance and reporting requirements
+- Cross-platform data exchange
+
+#### Technical Implementation
+
+**Backend Endpoint:**
+```java
+@GetMapping(value = "/download-xml/{studentId}", produces = "application/xml")
+public ResponseEntity<String> downloadRegistrationAsXml(@PathVariable String studentId) {
+    StudentRegistration registration = registrationService.getRegistrationByStudentId(studentId);
+    String xml = convertToXml(registration);
+    return ResponseEntity.ok()
+        .header("Content-Disposition", "attachment; filename=\"registration_" + studentId + ".xml\"")
+        .body(xml);
+}
+```
+
+**XML Format:**
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<studentRegistration>
+  <id>1</id>
+  <studentId>2024-001</studentId>
+  <studentName>John Doe</studentName>
+  <email>john@example.com</email>
+  <program>Computer Science</program>
+  <yearLevel>1st Year</yearLevel>
+  <status>REGISTERED</status>
+  <registrationTimestamp>2025-10-21T20:52:46</registrationTimestamp>
+  <message>Registration successful</message>
+</studentRegistration>
+```
+
+**Frontend Implementation:**
+- Blue "📥 Download as XML" button in success modal
+- Uses Axios with `responseType: 'blob'` for file download
+- Automatic file save to browser's download folder
+- Professional styling matching the UI theme
+
+**Features:**
+- ✅ XML special character escaping (prevents injection)
+- ✅ UTF-8 encoding support
+- ✅ Proper content-disposition header
+- ✅ Error handling for missing students
+- ✅ RESTful endpoint design
+
+### 3. Error Handling Features
 
 #### Automatic Error Capture
 When any error occurs:
@@ -865,6 +924,22 @@ rabbitTemplate.setConfirmCallback((correlation, ack, reason) -> {
 });
 ```
 
+#### 9. **Message Transformation (XML Export)**
+```java
+// Domain Object to XML
+private String convertToXml(StudentRegistration registration) {
+    StringBuilder xml = new StringBuilder();
+    xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+    xml.append("<studentRegistration>\n");
+    xml.append("  <studentId>").append(escapeXml(registration.getStudentId())).append("</studentId>\n");
+    // ... additional fields
+    xml.append("</studentRegistration>");
+    return xml.toString();
+}
+```
+
+**Purpose**: Demonstrates message format transformation for system integration and data portability.
+
 ---
 
 ## 🛡️ Error Handling & Monitoring
@@ -946,6 +1021,30 @@ POST http://localhost:8080/api/v1/admin/retry/{messageId}
 POST http://localhost:8080/api/v1/admin/dead-letter/{messageId}
 ```
 
+#### Registration API Endpoints
+
+```bash
+# Register new student
+POST http://localhost:8080/api/v1/registrations
+Content-Type: application/json
+
+{
+  "studentId": "2024-001",
+  "studentName": "John Doe",
+  "email": "john@example.com",
+  "program": "Computer Science",
+  "yearLevel": "First Year"
+}
+
+# Download registration as XML (NEW)
+GET http://localhost:8080/api/v1/registrations/download-xml/{studentId}
+Response: XML file download
+
+# Get registration by student ID
+GET http://localhost:8080/api/v1/registrations/student/{studentId}
+Response: JSON with registration details
+```
+
 #### Sample Statistics Response
 ```json
 {
@@ -990,6 +1089,21 @@ POST http://localhost:8080/api/v1/admin/dead-letter/{messageId}
 - ✅ Aggregated profile displayed
 - ✅ Entry in database
 - ✅ No error in admin dashboard
+- ✅ "📥 Download as XML" button visible in modal
+
+#### Scenario 1b: XML Download (NEW)
+**Steps:**
+1. Complete successful registration (Scenario 1)
+2. In the success modal, click "📥 Download as XML" button
+3. Check browser's download folder
+
+**Expected Result:**
+- ✅ XML file downloads automatically
+- ✅ Filename format: `registration_{studentId}.xml`
+- ✅ File contains properly formatted XML with all registration data
+- ✅ XML includes: id, studentId, studentName, email, program, yearLevel, status, registrationTimestamp
+- ✅ Special characters properly escaped (e.g., &, <, >)
+- ✅ File opens correctly in text editor or browser
 
 #### Scenario 2: Duplicate Student ID Error
 **Steps:**
@@ -1327,11 +1441,13 @@ spring.datasource.hikari.connection-timeout=20000
 
 #### 4. **Demo Flow**
 1. Show successful registration
-2. Demonstrate error handling (duplicate ID)
-3. Show admin dashboard with metrics
-4. Demonstrate automatic retry
-5. Show manual retry capability
-6. Explain dead letter queue concept
+2. **NEW**: Demonstrate XML download feature
+3. Demonstrate error handling (duplicate ID)
+4. Show admin dashboard with metrics
+5. Demonstrate automatic retry
+6. Show manual retry capability
+7. Explain dead letter queue concept
+8. **NEW**: Show XML file content and format
 
 #### 5. **Business Value**
 - **Reliability**: 99.9% message delivery guarantee
@@ -1339,6 +1455,9 @@ spring.datasource.hikari.connection-timeout=20000
 - **Transparency**: Complete audit trail of all operations
 - **Scalability**: Can handle 1000+ concurrent registrations
 - **Maintainability**: Easy to add new systems (Housing, Library, etc.)
+- **Data Portability**: XML export enables integration with external systems
+- **Compliance**: Structured data export for auditing and reporting
+- **Interoperability**: Standard XML format for cross-platform compatibility
 
 ---
 
@@ -1474,6 +1593,31 @@ CREATE TABLE error_logs (
 
 ---
 
-*Document Version: 1.0*
+## 🆕 Recent Updates (October 21, 2025)
+
+### Version 1.1 - XML Export Feature
+
+**Added:**
+- ✅ XML download endpoint: `GET /api/v1/registrations/download-xml/{studentId}`
+- ✅ Frontend download button in success modal
+- ✅ XML conversion utility with special character escaping
+- ✅ Professional blue gradient button styling
+- ✅ Automatic file download with proper naming convention
+
+**Technical Details:**
+- **Backend**: New REST endpoint in `RegistrationController.java`
+- **Frontend**: Download button in `RegistrationForm.js` with Axios blob handling
+- **Styling**: CSS classes in `RegistrationForm.css` (`.download-xml-btn`)
+- **File Format**: Standard XML 1.0 with UTF-8 encoding
+
+**Benefits:**
+- Enables data export for external systems
+- Supports backup and archival requirements
+- Facilitates compliance reporting
+- Demonstrates message transformation pattern
+
+---
+
+*Document Version: 1.1*
 *Last Updated: October 21, 2025*
 *Prepared by: RSU Development Team*
