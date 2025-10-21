@@ -45,7 +45,7 @@
     padding: 15px 25px;
     font-size: 16px;
     font-weight: 500;
-    color: #64748b;
+    color: #ffffff;
     cursor: pointer;
     transition: all 0.3s;
     border-bottom: 3px solid transparent;
@@ -120,7 +120,7 @@
 }
 
 .stat-label {
-    color: #64748b;
+    color: #000000;
     font-size: 14px;
     font-weight: 500;
 }

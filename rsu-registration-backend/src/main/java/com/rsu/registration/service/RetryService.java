@@ -126,8 +126,9 @@ public class RetryService {
      * Scheduled task that runs every 5 seconds to process retry queue.
      * Checks for messages ready for retry and processes them.
      */
-    @Scheduled(fixedDelay = 5000) // Run every 5 seconds
-    @Transactional
+    // Temporarily disabled to prevent infinite retries
+    // @Scheduled(fixedDelay = 5000) // Run every 5 seconds
+    // @Transactional
     public void processRetryQueue() {
         LocalDateTime currentTime = LocalDateTime.now();
         

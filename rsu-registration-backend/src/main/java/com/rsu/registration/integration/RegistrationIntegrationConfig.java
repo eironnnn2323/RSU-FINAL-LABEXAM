@@ -102,6 +102,10 @@ public class RegistrationIntegrationConfig {
                 new org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer(connectionFactory);
         container.setQueueNames(REGISTRATION_QUEUE);
         
+        // IMPORTANT: Do not requeue failed messages to prevent infinite loops
+        // Failed messages are captured in the error channel instead
+        container.setDefaultRequeueRejected(false);
+        
         AmqpInboundChannelAdapter adapter = new AmqpInboundChannelAdapter(container);
         adapter.setOutputChannel(registrationInputChannel());
         return adapter;
@@ -168,12 +172,15 @@ public class RegistrationIntegrationConfig {
                         ErrorCategory.DATABASE_ERROR,
                         e
                 );
+                log.info("✅ Failed message successfully saved to error channel");
             } catch (Exception captureError) {
                 log.error("❌ Failed to capture error message: {}", captureError.getMessage());
             }
             
-            // Re-throw to reject the message
-            throw new RuntimeException("Failed to process registration", e);
+            // DO NOT re-throw the exception to prevent RabbitMQ from requeuing
+            // The message is already captured in the failed_messages table
+            // and will be retried by the retry scheduler
+            log.warn("⚠️ Message processing failed but will not be requeued. Check failed_messages table.");
         }
     }
 
