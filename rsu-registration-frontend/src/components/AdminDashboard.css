@@ -10,7 +10,7 @@
 
     /* Dashboard Header */
     .dashboard-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #1e5631 0%, #2d7a4a 100%);
         color: white;
         padding: 30px;
         border-radius: 12px;
@@ -45,7 +45,7 @@
         padding: 15px 25px;
         font-size: 16px;
         font-weight: 500;
-        color: #ffffff;
+        color: #000000;
         cursor: pointer;
         transition: all 0.3s;
         border-bottom: 3px solid transparent;
@@ -53,13 +53,13 @@
     }
 
     .tab-button:hover {
-        color: #667eea;
+        color: #2d7a4a;
         background: #f8fafc;
     }
 
     .tab-button.active {
-        color: #667eea;
-        border-bottom-color: #667eea;
+        color: #2d7a4a;
+        border-bottom-color: #2d7a4a;
         background: #f8fafc;
     }
 
@@ -88,11 +88,10 @@
     }
 
     .stat-card {
-        background: white;
+        background: rgb(255, 255, 255);
         border-radius: 12px;
         padding: 25px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        display: flex;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;        display: flex;
         align-items: center;
         gap: 20px;
         transition: transform 0.3s, box-shadow 0.3s;
@@ -120,7 +119,7 @@
     }
 
     .stat-label {
-        color: #37ff00;
+        color: #000000;
         font-size: 14px;
         font-weight: 500;
     }
@@ -136,13 +135,14 @@
         grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
         gap: 20px;
         margin-bottom: 30px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     }
 
     .chart-card {
         background: white;
         border-radius: 12px;
         padding: 25px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     }
 
     .chart-card h3 {
@@ -194,14 +194,14 @@
 
     .stage-count {
         font-weight: 700;
-        color: #667eea;
+        color: #2d7a4a;
         font-size: 16px;
         float: right;
     }
 
     .stage-bar {
         height: 8px;
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(90deg, #2d7a4a 0%, #3fa35e 100%);
         border-radius: 4px;
         transition: width 0.5s;
         clear: both;
@@ -212,8 +212,7 @@
         background: white;
         border-radius: 12px;
         padding: 25px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;    }
 
     .metrics-card h3 {
         margin: 0 0 20px 0;
@@ -286,12 +285,12 @@
 
     .filter-select:focus {
         outline: none;
-        border-color: #667eea;
+        border-color: #2d7a4a;
     }
 
     .refresh-button {
         padding: 10px 20px;
-        background: #667eea;
+        background: #2d7a4a;
         color: white;
         border: none;
         border-radius: 8px;
@@ -302,7 +301,7 @@
     }
 
     .refresh-button:hover {
-        background: #5568d3;
+        background: #1e5631;
         transform: translateY(-2px);
     }
 
@@ -329,7 +328,7 @@
     }
 
     .data-table thead {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #1e5631 0%, #2d7a4a 100%);
         color: white;
     }
 
@@ -430,7 +429,7 @@
     /* Action Buttons */
     .action-button {
         padding: 8px 16px;
-        background: #667eea;
+        background: #2d7a4a;
         color: white;
         border: none;
         border-radius: 6px;
@@ -441,7 +440,7 @@
     }
 
     .action-button:hover {
-        background: #5568d3;
+        background: #1e5631;
         transform: translateY(-2px);
     }
 
@@ -468,7 +467,7 @@
     }
 
     .retry-history summary {
-        color: #667eea;
+        color: #2d7a4a;
         font-weight: 500;
         font-size: 12px;
     }
@@ -650,12 +649,12 @@
     }
 
     .button-primary {
-        background: #667eea;
+        background: #2d7a4a;
         color: white;
     }
 
     .button-primary:hover {
-        background: #5568d3;
+        background: #1e5631;
         transform: translateY(-2px);
     }
 

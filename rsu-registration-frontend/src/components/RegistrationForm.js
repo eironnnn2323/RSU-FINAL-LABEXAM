@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './RegistrationForm.css';
+import logo from '../images/logo.png';
 
 const API_URL = 'http://localhost:8080/api/v1/registrations';
 
@@ -161,10 +162,10 @@ function RegistrationForm() {
         <div className="info-panel-content">
           <div className="university-logo">
             <div className="logo-circle">
-              <span className="logo-text">RSU</span>
+              <img src={logo} alt="RSU Logo" />
             </div>
             <h2>Rejoice State University</h2>
-            <p className="tagline">Excellence in Education Since 1975</p>
+            <p className="tagline">Excellence in Education </p>
           </div>
 
           <div className="welcome-section">

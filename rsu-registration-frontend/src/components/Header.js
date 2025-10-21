@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
+import logo from '../images/logo.png';
 
 function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -20,8 +21,8 @@ function Header() {
         {/* Logo Section */}
         <div className="navbar-brand">
           <div className="logo-wrapper">
-            <div className="logo-circle">
-              <span className="logo-text">RSU</span>
+            <div className="logo-image-container">
+              <img src={logo} alt="RSU Logo" className="logo-image" />
             </div>
             <div className="brand-text">
               <h1 className="brand-name">Rejoice State University</h1>

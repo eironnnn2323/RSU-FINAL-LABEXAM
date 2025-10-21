@@ -8,7 +8,7 @@
 /* Left Side - Info Panel */
 .info-panel {
   flex: 0 0 45%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e5631 0%, #2d7a4a 100%);
   color: white;
   padding: 60px 50px;
   overflow-y: auto;
@@ -66,7 +66,7 @@
 .logo-circle {
   width: 120px;
   height: 120px;
-  background: rgba(255, 255, 255, 0.2);
+  background: white;
   border: 4px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   display: flex;
@@ -75,13 +75,14 @@
   margin: 0 auto 20px;
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  overflow: hidden;
 }
 
-.logo-text {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+.logo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .university-logo h2 {
@@ -388,8 +389,8 @@
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  border-color: #2d7a4a;
+  box-shadow: 0 0 0 4px rgba(45, 122, 74, 0.1);
   background: white;
 }
 
@@ -403,7 +404,7 @@
 /* Submit Button */
 .submit-btn {
   padding: 16px 28px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2d7a4a 0%, #3fa35e 100%);
   color: white;
   border: none;
   border-radius: 12px;
@@ -412,7 +413,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 15px;
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(45, 122, 74, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -438,7 +439,7 @@
 
 .submit-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+  box-shadow: 0 8px 25px rgba(45, 122, 74, 0.5);
 }
 
 .submit-btn:active:not(:disabled) {
@@ -545,7 +546,7 @@
 }
 
 .badge.first-year {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2d7a4a 0%, #3fa35e 100%);
   color: white;
 }
 
@@ -562,7 +563,7 @@
 .profile-loading {
   text-align: center;
   padding: 20px;
-  background: rgba(102, 126, 234, 0.05);
+  background: rgba(45, 122, 74, 0.05);
   border-radius: 8px;
 }
 
@@ -596,8 +597,8 @@
 }
 
 .spinner {
-  border: 4px solid rgba(102, 126, 234, 0.1);
-  border-top: 4px solid #667eea;
+  border: 4px solid rgba(45, 122, 74, 0.1);
+  border-top: 4px solid #2d7a4a;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -606,22 +607,22 @@
 }
 
 .profile-loading p {
-  color: #667eea;
+  color: #2d7a4a;
   font-size: 0.95rem;
   margin: 0;
   font-weight: 600;
 }
 
 .profile-complete {
-  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-  border: 2px solid #667eea;
+  background: linear-gradient(135deg, rgba(45, 122, 74, 0.15) 0%, rgba(63, 163, 94, 0.15) 100%);
+  border: 2px solid #2d7a4a;
   border-radius: 12px;
   padding: 20px;
   margin-top: 15px;
 }
 
 .profile-title {
-  color: #667eea;
+  color: #2d7a4a;
   font-size: 1.2rem;
   margin: 0 0 15px 0;
   text-align: center;
@@ -664,7 +665,7 @@
 .response-count,
 .aggregation-time {
   font-size: 0.85rem;
-  color: #667eea;
+  color: #2d7a4a;
   font-weight: 500;
 }
 
@@ -673,11 +674,11 @@
   border-radius: 8px;
   padding: 15px;
   margin: 15px 0;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid #2d7a4a;
 }
 
 .profile-section h4 {
-  color: #667eea;
+  color: #2d7a4a;
   font-size: 1rem;
   margin: 0 0 12px 0;
   font-weight: 600;
@@ -691,7 +692,7 @@
 
 .detail-item {
   padding: 8px;
-  background: rgba(102, 126, 234, 0.05);
+  background: rgba(45, 122, 74, 0.05);
   border-radius: 6px;
   font-size: 0.9rem;
 }
@@ -867,7 +868,7 @@
 }
 
 .modal-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2d7a4a 0%, #3fa35e 100%);
   color: white;
   padding: 25px 30px;
   display: flex;
@@ -920,17 +921,17 @@
 }
 
 .modal-body::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2d7a4a 0%, #3fa35e 100%);
   border-radius: 10px;
 }
 
 .modal-body::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  background: linear-gradient(135deg, #3fa35e 0%, #2d7a4a 100%);
 }
 
 .success-message {
-  background: linear-gradient(135deg, #667eea15, #764ba215);
-  border-left: 4px solid #667eea;
+  background: linear-gradient(135deg, rgba(45, 122, 74, 0.15), rgba(63, 163, 94, 0.15));
+  border-left: 4px solid #2d7a4a;
   padding: 15px 20px;
   border-radius: 10px;
   margin-bottom: 25px;
@@ -940,14 +941,14 @@
 }
 
 .modal-body .routing-info {
-  background: #f8f9ff;
+  background: #f0f8f4;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 25px;
 }
 
 .modal-body .routing-info h4 {
-  color: #667eea;
+  color: #2d7a4a;
   margin: 0 0 10px 0;
   font-size: 1.1rem;
 }
@@ -979,7 +980,7 @@
   background: white;
   margin: 5px 0;
   border-radius: 8px;
-  border-left: 3px solid #667eea;
+  border-left: 3px solid #2d7a4a;
 }
 
 .modal-body .student-type {
@@ -995,7 +996,7 @@
 }
 
 .modal-body .badge.first-year {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #2d7a4a, #3fa35e);
   color: white;
 }
 
@@ -1005,7 +1006,7 @@
 }
 
 .modal-body .aggregated-profile {
-  background: #fafbff;
+  background: #f0faf5;
   border-radius: 12px;
   padding: 20px;
 }
@@ -1013,14 +1014,14 @@
 .modal-body .profile-loading {
   text-align: center;
   padding: 40px 20px;
-  color: #667eea;
+  color: #2d7a4a;
 }
 
 .modal-body .profile-loading .spinner {
   width: 50px;
   height: 50px;
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #667eea;
+  border-top: 4px solid #2d7a4a;
   border-radius: 50%;
   margin: 0 auto 20px;
   animation: spin 1s linear infinite;
@@ -1031,7 +1032,7 @@
   font-size: 1.2rem;
   margin: 0 0 20px 0;
   padding-bottom: 15px;
-  border-bottom: 2px solid #667eea20;
+  border-bottom: 2px solid rgba(45, 122, 74, 0.2);
 }
 
 .modal-body .profile-status {
@@ -1074,7 +1075,7 @@
 
 .modal-body .profile-section h4 {
   margin: 0 0 15px 0;
-  color: #667eea;
+  color: #2d7a4a;
   font-size: 1.1rem;
   display: flex;
   align-items: center;
@@ -1089,9 +1090,9 @@
 
 .modal-body .detail-item {
   padding: 12px;
-  background: #f8f9ff;
+  background: #f0f8f4;
   border-radius: 8px;
-  border-left: 3px solid #667eea;
+  border-left: 3px solid #2d7a4a;
 }
 
 .modal-body .detail-item strong {
@@ -1111,7 +1112,7 @@
 }
 
 .modal-close-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2d7a4a 0%, #3fa35e 100%);
   color: white;
   border: none;
   padding: 12px 40px;
@@ -1120,12 +1121,12 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 15px rgba(45, 122, 74, 0.4);
 }
 
 .modal-close-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  box-shadow: 0 6px 20px rgba(45, 122, 74, 0.6);
 }
 
 .modal-close-btn:active {
