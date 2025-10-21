@@ -1109,6 +1109,7 @@
   border-top: 1px solid #e0e0e0;
   display: flex;
   justify-content: center;
+  gap: 15px;
 }
 
 .modal-close-btn {
@@ -1130,6 +1131,28 @@
 }
 
 .modal-close-btn:active {
+  transform: translateY(0);
+}
+
+.download-xml-btn {
+  background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+  color: white;
+  border: none;
+  padding: 12px 40px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
+}
+
+.download-xml-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(25, 118, 210, 0.6);
+}
+
+.download-xml-btn:active {
   transform: translateY(0);
 }
 

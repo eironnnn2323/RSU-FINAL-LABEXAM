@@ -356,6 +356,73 @@ public class RegistrationController {
     }
 
     /**
+     * Download registration data as XML
+     * Endpoint: GET /api/v1/registrations/download-xml/{studentId}
+     */
+    @GetMapping(value = "/download-xml/{studentId}", produces = "application/xml")
+    public ResponseEntity<String> downloadRegistrationAsXml(@PathVariable String studentId) {
+        log.info("📥 Request to download XML for student: {}", studentId);
+        
+        try {
+            StudentRegistration registration = registrationService.getRegistrationByStudentId(studentId);
+            
+            if (registration == null) {
+                log.warn("⚠️ Student not found: {}", studentId);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("<error><message>Student not found</message></error>");
+            }
+            
+            // Convert to XML format
+            String xml = convertToXml(registration);
+            
+            log.info("✅ XML generated for student: {}", studentId);
+            
+            return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment; filename=\"registration_" + studentId + ".xml\"")
+                .body(xml);
+                
+        } catch (Exception e) {
+            log.error("❌ Error generating XML for student {}: {}", studentId, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("<error><message>" + e.getMessage() + "</message></error>");
+        }
+    }
+    
+    /**
+     * Helper method to convert StudentRegistration to XML
+     */
+    private String convertToXml(StudentRegistration registration) {
+        StringBuilder xml = new StringBuilder();
+        xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+        xml.append("<studentRegistration>\n");
+        xml.append("  <id>").append(registration.getId()).append("</id>\n");
+        xml.append("  <studentId>").append(escapeXml(registration.getStudentId())).append("</studentId>\n");
+        xml.append("  <studentName>").append(escapeXml(registration.getStudentName())).append("</studentName>\n");
+        xml.append("  <email>").append(escapeXml(registration.getEmail())).append("</email>\n");
+        xml.append("  <program>").append(escapeXml(registration.getProgram())).append("</program>\n");
+        xml.append("  <yearLevel>").append(escapeXml(registration.getYearLevel())).append("</yearLevel>\n");
+        xml.append("  <status>").append(escapeXml(registration.getStatus())).append("</status>\n");
+        xml.append("  <registrationTimestamp>").append(registration.getRegistrationTimestamp()).append("</registrationTimestamp>\n");
+        if (registration.getMessage() != null) {
+            xml.append("  <message>").append(escapeXml(registration.getMessage())).append("</message>\n");
+        }
+        xml.append("</studentRegistration>");
+        return xml.toString();
+    }
+    
+    /**
+     * Helper method to escape XML special characters
+     */
+    private String escapeXml(String text) {
+        if (text == null) return "";
+        return text.replace("&", "&amp;")
+                   .replace("<", "&lt;")
+                   .replace(">", "&gt;")
+                   .replace("\"", "&quot;")
+                   .replace("'", "&apos;");
+    }
+
+    /**
      * Health check endpoint
      */
     @GetMapping("/health")

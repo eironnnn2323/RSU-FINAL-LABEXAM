@@ -23,6 +23,7 @@ function RegistrationForm() {
   const [aggregatedProfile, setAggregatedProfile] = useState(null); // Aggregated profile
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [showModal, setShowModal] = useState(false); // Modal visibility
+  const [submittedStudentId, setSubmittedStudentId] = useState(''); // Store student ID for download
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,6 +52,7 @@ function RegistrationForm() {
       setMessageType('success');
       setMessage(`✓ ${response.data.message}`);
       setRegistrationId(response.data.registrationId);
+      setSubmittedStudentId(formData.studentId); // Store for XML download
       
       // Store routing information for display
       if (response.data.routedTo && response.data.routedTo.length > 0) {
@@ -135,6 +137,40 @@ function RegistrationForm() {
     setRoutingInfo(null);
     setTranslationChain(null);
     setAggregatedProfile(null);
+    setSubmittedStudentId('');
+  };
+
+  const downloadXml = async () => {
+    if (!submittedStudentId) {
+      alert('No student ID available for download');
+      return;
+    }
+
+    try {
+      const response = await axios.get(`${API_URL}/download-xml/${submittedStudentId}`, {
+        responseType: 'blob'
+      });
+
+      // Create a blob from the response
+      const blob = new Blob([response.data], { type: 'application/xml' });
+      const url = window.URL.createObjectURL(blob);
+      
+      // Create a temporary link and trigger download
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `registration_${submittedStudentId}.xml`;
+      document.body.appendChild(link);
+      link.click();
+      
+      // Clean up
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      
+      alert('✅ XML file downloaded successfully!');
+    } catch (error) {
+      console.error('Error downloading XML:', error);
+      alert('❌ Failed to download XML file. Please try again.');
+    }
   };
 
   const handleModalOverlayClick = (e) => {
@@ -567,6 +603,9 @@ function RegistrationForm() {
               </div>
 
               <div className="modal-footer">
+                <button className="download-xml-btn" onClick={downloadXml}>
+                  📥 Download as XML
+                </button>
                 <button className="modal-close-btn" onClick={closeModal}>
                   Close
                 </button>
